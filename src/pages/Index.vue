@@ -18,59 +18,119 @@
     <div :class="$style['swiper-area']">
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-          <img v-lazy="banner.imageUrl" width="100%"/>
+          <img v-lazy="banner.image" width="100%"/>
         </van-swipe-item>
       </van-swipe>
     </div>
     <!-- 分类列表 -->
     <div :class="$style['type-bar']">
       <div v-for="(item,index) in category" :key="index">
-        <img v-lazy="item.image" alt="item.mallCategoryName">
+        <img :src="item.image" alt="item.mallCategoryName">
         <span>{{item.mallCategoryName}}</span>
       </div>
     </div>
     <!-- 广告条 -->
     <div :class="$style.adwamp">
-      <img v-lazy="adBanner" alt="">
+      <img :src="adBanner" alt="">
+    </div>
+    <!-- 商品推荐 -->
+    <div :class="$style.recommend">
+      <div :class="$style['recommend-title']">
+        商品推荐
+      </div>
+      <div :class="$style['recommend-body']">
+        <swiper :options="swiperOption">
+          <swiperSlide v-for="(item,index) in recommendGoods" :key="index" >
+            <div :class="$style['recommend-item']">
+              <img :src="item.image" width="80%">
+              <div>{{item.goodsName}}</div>
+              <div>￥{{item.price | moneyFilter}}(￥{{item.mallPrice  | moneyFilter}})</div>
+            </div>
+          </swiperSlide> 
+        </swiper>
+      </div>
+    </div>
+    <!-- 类似于楼层的风格 -->
+    <floor :floorData="floor1" :floorTitle="floorName.floor1"></floor>
+    <floor :floorData="floor2" :floorTitle="floorName.floor2"></floor>
+    <floor :floorData="floor3" :floorTitle="floorName.floor3"></floor>
+    <!-- 热卖模块 -->
+    <!--Hot Area-->
+    <div :class="$style['hot-area']">
+      <div :class="$style['hot-title']">热卖商品</div>
+      <div :class="$style['hot-goods']">
+      <!--这里需要一个list组件-->
+        <van-list>
+          <van-row gutter="20">
+            <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+              <goods :goodsId="item.goodsId" :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goods>
+            </van-col>
+          </van-row>
+        </van-list>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { getIndex } from '@/api/index.js'
+import { getIndex } from "@/api/index.js";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import floor from "@/components/floor.vue";
+import goods from "@/components/goods.vue"
+import { toMoney } from "@/filter/index.js";
 export default {
   data() {
     return {
       locationIcon: require("@/assets/images/location.png"),
-      bannerPicArray: [
-        {
-          imageUrl: "http://img.jspang.com/simleVueDemoPic001.jpg"
-        },
-        {
-          imageUrl: "http://img.jspang.com/simleVueDemoPic002.jpg"
-        },
-        {
-          imageUrl: "http://img.jspang.com/simleVueDemoPic003.jpg"
-        }
-      ],
+      bannerPicArray: [],
       category: [],
-      adBanner: ''
+      adBanner: "",
+      recommendGoods: [],
+      swiperOption: {
+        slidesPerView: 3
+      },
+      floor1: [],
+      floor2: [],
+      floor3: [],
+      floorName: "",
+      hotGoods: []
     };
   },
-  created(){
-    this.getData()
+  created() {
+    this.getData();
+  },
+  filters: {
+    moneyFilter(money) {
+      return toMoney(money);
+    }
   },
   methods: {
-    getData(){
-      getIndex().then((res) => {
-        console.log(res)
-        if (res.status === 200) {
-          this.category = res.data.data.category
-          this.adBanner = res.data.data.advertesPicture.PICTURE_ADDRESS
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
+    getData() {
+      getIndex()
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            this.bannerPicArray = res.data.data.slides;
+            this.category = res.data.data.category;
+            this.adBanner = res.data.data.advertesPicture.PICTURE_ADDRESS;
+            this.recommendGoods = res.data.data.recommend;
+            this.floor1 = res.data.data.floor1;
+            this.floor2 = res.data.data.floor2;
+            this.floor3 = res.data.data.floor3;
+            this.floorName = res.data.data.floorName;
+            this.hotGoods = res.data.data.hotGoods;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  },
+  components: {
+    swiper,
+    swiperSlide,
+    floor,
+    goods
   }
 };
 </script>
@@ -97,45 +157,79 @@ export default {
     border-bottom: 1px solid #fff;
   }
 }
-.swiper-area{
+.swiper-area {
   width: 100%;
   overflow: hidden;
-  &:after{
+  &:after {
     content: "";
     display: block;
     height: 0;
     clear: both;
   }
 }
-.type-bar{
+.type-bar {
   background: #fff;
-  margin: 0 .3rem .3rem .3rem;
-  border-radius: .3rem;
+  margin: 0 0.3rem 0.3rem 0.3rem;
+  border-radius: 0.3rem;
   font-size: 14px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  div{
-    padding: .3rem;
+  div {
+    padding: 0.3rem;
     font-size: 12px;
     text-align: center;
     flex: 1;
-    img{
+    img {
       width: 80%;
     }
-    span{
+    span {
       display: inline-block;
       width: 100%;
       white-space: nowrap;
     }
   }
 }
-.adwamp{
+.adwamp {
   width: 100%;
   overflow: hidden;
-  img{
+  img {
     float: left;
     width: 100%;
+  }
+}
+.recommend {
+  background-color: #fff;
+  margin-top: 0.3rem;
+  .recommend-title {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    padding: 0.2rem;
+    color: #e5017d;
+  }
+  .recommend-body {
+    border-bottom: 1px solid #eee;
+  }
+  .recommend-item {
+    width: 99%;
+    border-right: 1px solid #eee;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+.hot-area {
+  text-align: center;
+  font-size: 14px;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  .hot-goods {
+    overflow: hidden;
+    background-color: #fff;
+    & > .van-col{
+      float: none;
+      display: inline-block;
+      vertical-align: top;
+    }
   }
 }
 </style>
