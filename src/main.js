@@ -9,16 +9,19 @@ import router from './router/index.js'
 // 按需引入
 const autoRem = () => {
   //得到手机屏幕的宽度
-  let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+  let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
+  if (htmlWidth > 750) {
+    htmlWidth = 750
+  }
   //得到html的Dom元素
-  let htmlDom = document.getElementsByTagName('html')[0];
+  let htmlDom = document.getElementsByTagName('html')[0]
   //设置根元素字体大小
-  htmlDom.style.fontSize= (htmlWidth/750) * 200 + 'px';
+  htmlDom.style.fontSize= (htmlWidth/20) + 'px'
 }
-autoRem();
-window.onresize = autoRem;
-import { Button, Row, Col } from 'vant'
-Vue.use(Button).use(Row).use(Col)
+autoRem()
+window.onresize = autoRem
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload  } from 'vant'
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{preLoad: 1.3})
 Vue.config.productionTip = false
 
 new Vue({
