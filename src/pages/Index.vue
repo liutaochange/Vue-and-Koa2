@@ -22,9 +22,21 @@
         </van-swipe-item>
       </van-swipe>
     </div>
+    <!-- 分类列表 -->
+    <div :class="$style['type-bar']">
+      <div v-for="(item,index) in category" :key="index">
+        <img v-lazy="item.image" alt="item.mallCategoryName">
+        <span>{{item.mallCategoryName}}</span>
+      </div>
+    </div>
+    <!-- 广告条 -->
+    <div :class="$style.adwamp">
+      <img v-lazy="adBanner" alt="">
+    </div>
   </div>
 </template>
 <script>
+import { getIndex } from '@/api/index.js'
 export default {
   data() {
     return {
@@ -39,8 +51,26 @@ export default {
         {
           imageUrl: "http://img.jspang.com/simleVueDemoPic003.jpg"
         }
-      ]
+      ],
+      category: [],
+      adBanner: ''
     };
+  },
+  created(){
+    this.getData()
+  },
+  methods: {
+    getData(){
+      getIndex().then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          this.category = res.data.data.category
+          this.adBanner = res.data.data.advertesPicture.PICTURE_ADDRESS
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 };
 </script>
@@ -69,13 +99,43 @@ export default {
 }
 .swiper-area{
   width: 100%;
-  max-height: 12rem;
   overflow: hidden;
   &:after{
     content: "";
     display: block;
     height: 0;
     clear: both;
+  }
+}
+.type-bar{
+  background: #fff;
+  margin: 0 .3rem .3rem .3rem;
+  border-radius: .3rem;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  div{
+    padding: .3rem;
+    font-size: 12px;
+    text-align: center;
+    flex: 1;
+    img{
+      width: 80%;
+    }
+    span{
+      display: inline-block;
+      width: 100%;
+      white-space: nowrap;
+    }
+  }
+}
+.adwamp{
+  width: 100%;
+  overflow: hidden;
+  img{
+    float: left;
+    width: 100%;
   }
 }
 </style>

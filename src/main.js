@@ -21,7 +21,9 @@ const autoRem = () => {
 autoRem()
 window.onresize = autoRem
 import { Button, Row, Col, Swipe, SwipeItem, Lazyload  } from 'vant'
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{preLoad: 1.3})
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{
+  loading: require('./assets/images/use.jpg')
+})
 Vue.config.productionTip = false
 
 new Vue({
