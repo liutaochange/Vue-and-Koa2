@@ -5,7 +5,12 @@ const Register = () => import('@/pages/Register.vue')
 Vue.use(Router)
 export default new Router({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
+      path: '/',
+      redirect: '/index'
+    },
+    {
       path: '/index',
       name: 'index',
       component: Index
@@ -14,10 +19,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    },
-    {
-      path: '*',
-      component: Index
     }
   ]
 })
