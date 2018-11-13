@@ -20,10 +20,10 @@ const autoRem = () => {
 }
 autoRem()
 window.onresize = autoRem
-import { Button, Row, Col, Swipe, SwipeItem, Lazyload,List } from 'vant'
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast } from 'vant'
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{
   loading: require('./assets/images/use.jpg')
-}).use(List)
+}).use(List).use(NavBar).use(Field).use(Toast)
 Vue.config.productionTip = false
 
 new Vue({
