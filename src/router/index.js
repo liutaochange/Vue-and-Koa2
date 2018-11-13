@@ -4,12 +4,8 @@ const Index = () => import('@/pages/Index.vue')
 const Register = () => import('@/pages/Register.vue')
 Vue.use(Router)
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      redirect: '/index'
-    },
-    {
+  mode: 'history',
+  routes: [{
       path: '/index',
       name: 'index',
       component: Index
@@ -18,6 +14,10 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '*',
+      component: Index
     }
   ]
 })

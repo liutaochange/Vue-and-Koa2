@@ -18,6 +18,7 @@
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "koa2-connect-history-api-fallback": "0.0.6",
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.3.11"
   }
