@@ -55,12 +55,18 @@ export default {
       this.openLoading = true;
       loginUser(this.username, this.password)
         .then(response => {
-          if (response.data.code == 200) {
-            Toast.success(response.data.message);
-            this.$router.push("/");
+          if (response.data.code == 200 && response.data.status) {
+            try {
+              localStorage.setItem('__USER_INFO__', this.username );
+              Toast.success(response.data.message);
+              this.$router.push("/");
+            } catch (error) {
+              Toast.fail("登录状态保存失败,请关闭无痕浏览");
+              console.log(error);
+            }
           } else {
             this.openLoading = false;
-            Toast.fail("登录失败");
+            Toast.fail(response.data.message);
           }
         })
         .catch(error => {

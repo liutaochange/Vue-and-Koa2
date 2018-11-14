@@ -47,14 +47,16 @@ router.post('/login', async (ctx) => {
           if (isMatch) {
             ctx.body = {
               code: 200,
-              message: "登录成功"
+              message: "登录成功",
+              status: true
             }
           }
         })
         .catch(error => {
           ctx.body = {
             code: 500,
-            message: error
+            message: error,
+            status: false
           }
         })
     } else {
