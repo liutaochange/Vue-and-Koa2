@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const bcrypt = require('bcrypt')
 const SALT_WORK_FACTOR = 10
+
 /**
  * 创建模型
  */
@@ -30,9 +31,8 @@ const userSchema = new Schema({
 })
 
 /**
- * 
+ *  对密码进行加盐
  */
-
 userSchema.pre('save', function (next) {
   // this 此处指代 Schema
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
@@ -44,6 +44,21 @@ userSchema.pre('save', function (next) {
     })
   })
 })
+
+/**
+ *  增加密码比对的方法
+ */
+userSchema.methods = {
+  comparePassword: (_password, password) => {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(_password, password, (err, isMatch) => {
+        if (!err) resolve(isMatch)
+        else reject(err)
+      })
+    })
+  }
+}
+
 
 /**
  * 发布模型

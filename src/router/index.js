@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const Index = () => import('@/pages/Index.vue')
 const Register = () => import('@/pages/Register.vue')
+const Login = () => import('@/pages/Login.vue')
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -19,6 +20,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

@@ -23,3 +23,16 @@ export const registerUser = (userName, password) =>  request({
     password: password
   }
 })
+
+/**
+ *  用户登录
+ */
+export const loginUser = (userName, password) =>  request({
+  baseURL: '', 
+  method: 'post',
+  url: '/user/login',
+  data: {
+    userName: userName,
+    password: password
+  }
+})
