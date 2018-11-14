@@ -51,7 +51,6 @@ export default {
     registerAction() {
       this.checkForm() && this.axiosRegisterUser();
     },
-
     axiosRegisterUser() {
       this.openLoading = true;
       registerUser(this.username, this.password)
@@ -85,7 +84,6 @@ export default {
       } else {
         this.passwordErrorMsg = "";
       }
-
       return isOk;
     }
   }
