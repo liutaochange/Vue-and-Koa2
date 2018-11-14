@@ -34,6 +34,7 @@
 <script>
 import { loginUser } from "@/api/index.js";
 import { Toast } from "vant";
+const USER_KEY = "__USER_INFO__";
 export default {
   data() {
     return {
@@ -43,6 +44,13 @@ export default {
       usernameErrorMsg: "", //当用户名出现错误时的提示信息
       passwordErrorMsg: "" //当密码出现错误时的提示信息
     };
+  },
+  created() {
+    let userInfo = localStorage.getItem(USER_KEY);
+    if (userInfo) {
+      Toast.success("您已经登录过了");
+      this.$router.push("/");
+    }
   },
   methods: {
     goBack() {
@@ -57,7 +65,7 @@ export default {
         .then(response => {
           if (response.data.code == 200 && response.data.status) {
             try {
-              localStorage.setItem('__USER_INFO__', this.username );
+              localStorage.setItem(USER_KEY, this.username);
               Toast.success(response.data.message);
               this.$router.push("/");
             } catch (error) {

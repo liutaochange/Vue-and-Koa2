@@ -6,15 +6,11 @@ const request = axios.create({
   withCredentials: false
 })
 
-/**
- *  获取首页数据
- */
-export const getIndex = () =>  request.get('/example/index')
+// 获取首页数据
+const getIndex = () =>  request.get('/example/index')
 
-/**
- *  用户注册
- */
-export const registerUser = (userName, password) =>  request({
+// 用户注册
+const registerUser = (userName, password) =>  request({
   baseURL: '', 
   method: 'post',
   url: '/user/register',
@@ -24,10 +20,8 @@ export const registerUser = (userName, password) =>  request({
   }
 })
 
-/**
- *  用户登录
- */
-export const loginUser = (userName, password) =>  request({
+// 用户登录
+const loginUser = (userName, password) =>  request({
   baseURL: '', 
   method: 'post',
   url: '/user/login',
@@ -36,3 +30,14 @@ export const loginUser = (userName, password) =>  request({
     password: password
   }
 })
+// 商品详情
+const getGoodsInfo = (goodsId) =>  request({
+  baseURL: '', 
+  method: 'post',
+  url: '/goods/getDetailGoodsInfo',
+  data: {
+    goodsId: goodsId,
+  }
+})
+
+export { getIndex, registerUser, loginUser, getGoodsInfo }

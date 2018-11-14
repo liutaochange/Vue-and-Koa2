@@ -1,6 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+router.beforeEach((to,from,next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
+
+
+
 // 全局引入不推荐
 // import Vant from 'vant'
 // import 'vant/lib/index.css'
@@ -20,10 +34,10 @@ const autoRem = () => {
 }
 autoRem()
 window.onresize = autoRem
-import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast } from 'vant'
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast, Tab, Tabs } from 'vant'
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{
   loading: require('./assets/images/use.jpg')
-}).use(List).use(NavBar).use(Field).use(Toast)
+}).use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs)
 Vue.config.productionTip = false
 
 new Vue({
