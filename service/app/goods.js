@@ -81,11 +81,13 @@ router.get('/insertAllCategorySub', async (ctx) => {
  */
 router.post('/getDetailGoodsInfo', async (ctx) => {
   let goodsId = ctx.request.body.goodsId
+  console.log(goodsId)
   const Goods = mongoose.model('Goods')
   await Goods.findOne({
       ID: goodsId
     }).exec()
     .then(async (result) => {
+      console.log(result)
       ctx.body = {
         code: 200,
         message: result
