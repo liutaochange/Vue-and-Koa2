@@ -7,9 +7,12 @@ const fs = require('fs')
  * 插入所有的商品数据
  * http://localhost:3000/goods/insertAllGoodsInfo
  */
-router.get('/insertAllGoodsInfo', async (ctx) => {
+router.get('/insertAllGoodsInfo', (ctx) => {
   fs.readFile('./data_json/goods.json', 'utf8', (err, data) => {
-    if (err) console.log(err)
+    if (err) {
+      console.error('读取文件出错！', err)
+      return
+    }
     data = JSON.parse(data)
     let saveCount = 0
     const Goods = mongoose.model('Goods')
@@ -30,9 +33,12 @@ router.get('/insertAllGoodsInfo', async (ctx) => {
  * 插入所有的分类数据
  * http://localhost:3000/goods/insertAllCategory
  */
-router.get('/insertAllCategory', async (ctx) => {
+router.get('/insertAllCategory', (ctx) => {
   fs.readFile('./data_json/category.json', 'utf8', (err, data) => {
-    if (err) console.log(err)
+    if (err) {
+      console.error('读取文件出错！', err)
+      return
+    }
     data = JSON.parse(data)
     let saveCount = 0
     const Category = mongoose.model('Category')
@@ -54,10 +60,12 @@ router.get('/insertAllCategory', async (ctx) => {
  * 插入所有的分类的子类的数据
  * http://localhost:3000/goods/insertAllCategorySub
  */
-router.get('/insertAllCategorySub', async (ctx) => {
-  console.log('start')
+router.get('/insertAllCategorySub', (ctx) => {
   fs.readFile('./data_json/category_sub.json', 'utf8', (err, data) => {
-    if (err) console.log(err)
+    if (err) {
+      console.error('读取文件出错！', err)
+      return
+    }
     data = JSON.parse(data)
     let saveCount = 0
     const CategorySub = mongoose.model('CategorySub')
@@ -79,14 +87,13 @@ router.get('/insertAllCategorySub', async (ctx) => {
 /**
  * 获取商品详细信息的接口
  */
-router.post('/getDetailGoodsInfo', async (ctx) => {
+router.post('/getDetailGoodsInfo', (ctx) => {
   let goodsId = ctx.request.body.goodsId
-  console.log(goodsId)
   const Goods = mongoose.model('Goods')
-  await Goods.findOne({
-      ID: goodsId
-    }).exec()
-    .then(async (result) => {
+  Goods.findOne({
+    ID: goodsId
+  }).exec()
+    .then((result) => {
       console.log(result)
       ctx.body = {
         code: 200,

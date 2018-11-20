@@ -5,13 +5,13 @@ const router = new Router()
 /**
  * 用户注册的逻辑
  */
-router.post('/register', async (ctx) => {
+router.post('/register', (ctx) => {
   //取得Model
   const User = mongoose.model('User')
   //把从前端接收的POST数据封装成一个新的user对象
   let newUser = new User(ctx.request.body)
   //用mongoose的save方法直接存储，然后判断是否成功，返回相应的结果
-  await newUser.save().then(() => {
+  newUser.save().then(() => {
     //成功返回code=200，并返回成功信息
     ctx.body = {
       code: 200,
@@ -29,7 +29,7 @@ router.post('/register', async (ctx) => {
 /**
  * 用户登录的逻辑
  */
-router.post('/login', async (ctx) => {
+router.post('/login', (ctx) => {
   let loginUser = ctx.request.body
   let userName = loginUser.userName
   let password = loginUser.password
@@ -37,12 +37,12 @@ router.post('/login', async (ctx) => {
   //引入User的model
   const User = mongoose.model('User')
 
-  await User.findOne({
+  User.findOne({
     userName: userName
-  }).exec().then(async (result) => {
+  }).exec().then((result) => {
     if (result) {
       let newUser = new User()
-      await newUser.comparePassword(password, result.password)
+      newUser.comparePassword(password, result.password)
         .then(isMatch => {
           if (isMatch) {
             ctx.body = {

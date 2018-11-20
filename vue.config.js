@@ -6,9 +6,12 @@ function resolve(dir) {
 }
 module.exports = {
   devServer: {
-    port: '8088',
+    port: '9099',
     disableHostCheck: true,
     proxy: {
+      '/main': {
+        target: 'http://localhost:3000'
+      },
       '/user': {
         target: 'http://localhost:3000'
       },
