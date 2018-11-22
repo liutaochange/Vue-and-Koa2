@@ -1,23 +1,25 @@
 const Router = require('koa-router')
+const util = require('util')
 const router = new Router()
 const fs = require('fs')
+const readAsync = util.promisify(fs.readFile)
 
-router.post('/getIndex', (ctx) => {
-  fs.readFile('./data_json/index.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('读取文件出错！', err)
-      ctx.body = {
-        code: 500,
-        message: err
+router.post('/getIndex', async (ctx) => {
+  let response
+  try {
+    await readAsync('./data_json/index.json', 'utf8').then((data) => {
+      response = {
+        code: 200,
+        data: data
       }
-      return
+    })
+  } catch (error) {
+    response = {
+      code: 500,
+      message: error
     }
-    data = JSON.parse(data)
-    ctx.body = {
-      code: 200,
-      data: data
-    }
-  })
+  }
+  ctx.body = response
 })
 
 module.exports = router;

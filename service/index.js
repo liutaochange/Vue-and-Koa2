@@ -14,30 +14,34 @@ app.use(historyApiFallback({
 }));
 app.use(bodyParser());
 
-
 const router = new Router();
 
 // 路由模块化 首页数据
 const home = require('./app/home.js');
-router.use('/main', home.routes());
+router.use('/main', home.routes(), home.allowedMethods());
 
 
 // 路由模块化 用户登录注册模块
 const user = require('./app/user.js');
-router.use('/user', user.routes());
+router.use('/user', user.routes(), user.allowedMethods());
 
 
 // 路由模块化 商品详情模块
 const goods = require('./app/goods.js');
-router.use('/goods', goods.routes());
+router.use('/goods', goods.routes(), goods.allowedMethods());
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+
 
 ;(async () => {
   await connect()
   initSchemas()
 })()
+
+app.use(async (ctx) => {
+  ctx.body = `listen at 3000`
+})
 
 app.listen(3000, () => {
   console.log('listen 3000')

@@ -110,6 +110,8 @@ export default {
         .then(res => {
           console.log(res);
           if (res.status === 200) {
+            let getData = JSON.parse(res.data.data);
+            res.data.data = getData.data
             this.bannerPicArray = res.data.data.slides;
             this.category = res.data.data.category;
             this.adBanner = res.data.data.advertesPicture.PICTURE_ADDRESS;

@@ -87,26 +87,27 @@ router.get('/insertAllCategorySub', (ctx) => {
 /**
  * 获取商品详细信息的接口
  */
-router.post('/getDetailGoodsInfo', (ctx) => {
+router.post('/getDetailGoodsInfo', async (ctx) => {
   let goodsId = ctx.request.body.goodsId
   const Goods = mongoose.model('Goods')
-  Goods.findOne({
-    ID: goodsId
-  }).exec()
-    .then((result) => {
-      console.log(result)
-      ctx.body = {
-        code: 200,
-        message: result
-      }
-    })
-    .catch(error => {
-      console.log(error)
-      ctx.body = {
-        code: 500,
-        message: error
-      }
-    })
+  let response
+  try {
+    await Goods.findOne({
+      ID: goodsId
+    }).exec()
+      .then((result) => {
+        response = {
+          code: 200,
+          message: result
+        }
+      })
+  } catch (error) {
+    response = {
+      code: 500,
+      message: error
+    }
+  }
+  ctx.body = response
 })
 
 

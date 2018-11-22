@@ -1,18 +1,18 @@
 import axios from 'axios'
 const request = axios.create({
-  baseURL: '/api', 
+  baseURL: '/api',
   timeout: 5000,
   withCredentials: true
 })
 
 // 获取首页数据
-const getIndex = () =>  request({
+const getIndex = () => request({
   method: 'post',
   url: '/main/getIndex'
 })
 
 // 用户注册
-const registerUser = (userName, password) =>  request({
+const registerUser = (userName, password) => request({
   method: 'post',
   url: '/user/register',
   data: {
@@ -22,7 +22,7 @@ const registerUser = (userName, password) =>  request({
 })
 
 // 用户登录
-const loginUser = (userName, password) =>  request({
+const loginUser = (userName, password) => request({
   method: 'post',
   url: '/user/login',
   data: {
@@ -31,7 +31,7 @@ const loginUser = (userName, password) =>  request({
   }
 })
 // 商品详情
-const getGoodsInfo = (goodsId) =>  request({
+const getGoodsInfo = (goodsId) => request({
   method: 'post',
   url: '/goods/getDetailGoodsInfo',
   data: {
