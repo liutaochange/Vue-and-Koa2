@@ -111,6 +111,49 @@ router.post('/getDetailGoodsInfo', async (ctx) => {
 })
 
 
+/**
+ * 获取商品分类 大类信息的接口
+ */
+router.post('/getCategoryList', async (ctx) => {
+  try {
+    const Category = mongoose.model('Category')
+    let result = await Category.find().exec()
+    ctx.body = { code: 200, message: result }
+  } catch (err) {
+    ctx.body = { code: 500, message: err }
+  }
+})
+
+/**
+ * 获取商品子类 分类信息的接口
+ */
+router.post('/getCategorySubList', async (ctx) => {
+  try {
+    let cateoryId = ctx.request.body.categoryId
+    const CategorySub = mongoose.model('CategorySub')
+    let result = await CategorySub.find({ MALL_CATEGORY_ID: cateoryId }).exec()
+    ctx.body = { code: 200, message: result }
+  } catch (error) {
+    ctx.body = { code: 500, message: error }
+  }
+})
+
+/**
+ * 根据商品类别 获取商品信息的接口
+ */
+router.post('/getGoodsListByCategorySubID', async (ctx) => {
+  try {
+    let categorySubId = ctx.request.body.categorySubId  //子类别ID
+    let page = ctx.request.body.page  //当前页数
+    let num = 10  //每页显示数量
+    let start = (page - 1) * num  //开始位置
+    const Goods = mongoose.model('Goods')
+    let result = await Goods.find({ SUB_ID: categorySubId }).skip(start).limit(num).exec()
+    ctx.body = { code: 200, message: result }
+  } catch (error) {
+    ctx.body = { code: 500, message: error }
+  }
+})
 
 
 module.exports = router;

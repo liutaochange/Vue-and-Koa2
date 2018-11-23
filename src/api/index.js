@@ -38,5 +38,28 @@ const getGoodsInfo = (goodsId) => request({
     goodsId: goodsId,
   }
 })
-
-export { getIndex, registerUser, loginUser, getGoodsInfo }
+// 获取商品分类 大类信息
+const getCategoryList = () => request({
+  method: 'post',
+  url: '/goods/getCategoryList'
+})
+// 获取商品分类 子类信息
+const getCategorySubList = (categoryId) => request({
+  method: 'post',
+  url: '/goods/getCategorySubList',
+  data: {
+    categoryId
+  }
+})
+/**
+ * 根据商品类别 获取商品信息的接口
+ */
+const getGoodsListByCategorySubID = (categorySubId, page) => request({
+  method: 'post',
+  url: '/goods/getGoodsListByCategorySubID',
+  data: {
+    categorySubId,
+    page
+  }
+})
+export { getIndex, registerUser, loginUser, getGoodsInfo, getCategoryList, getCategorySubList, getGoodsListByCategorySubID }

@@ -16,10 +16,12 @@
       <div>
         <van-tabs swipeable sticky>
           <van-tab title="商品详情">
-            <div :class="$style['detail']" v-html="goodsInfo.DETAIL"></div>
+            <div :class="$style.detail" v-html="goodsInfo.DETAIL"></div>
           </van-tab>
           <van-tab title="评论">
-            评论制作中
+            <div :class="$style.comment">
+              评论制作中
+            </div>
           </van-tab>
         </van-tabs>
       </div>
@@ -51,9 +53,7 @@ export default {
     }
   },
   created() {
-    this.goodsId = this.$route.query.goodsId
-      ? this.$route.query.goodsId
-      : this.$route.params.goodsId;
+    this.goodsId = this.$route.params.id;
     this.getInfo();
   },
   methods: {
@@ -103,14 +103,16 @@ export default {
 </script>
 
 <style lang="less" module>
-.goods-name {
+.goods-name,.goods-price {
   background-color: #fff;
-}
-.goods-price {
-  background-color: #fff;
+  padding: 4px 0;
 }
 .detail {
   font-size: 0px;
+}
+.comment{
+  padding: 10px 0;
+  text-align: center;
 }
 .goods-bottom {
   position: fixed;

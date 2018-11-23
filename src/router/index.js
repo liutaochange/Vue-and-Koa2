@@ -4,6 +4,7 @@ const Index = () => import('@/pages/Index.vue')
 const Register = () => import('@/pages/Register.vue')
 const Login = () => import('@/pages/Login.vue')
 const Goods = () => import('@/pages/Goods.vue')
+const CategoryList = () => import('@/pages/CategoryList.vue')
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -28,9 +29,14 @@ export default new Router({
       component: Login
     },
     {
-      path: '/goodInfo',
+      path: '/goodInfo/:id',
       name: 'goodInfo',
       component: Goods
+    },
+    {
+      path: '/category',
+      name: 'categoryList',
+      component: CategoryList
     }
   ]
 })
