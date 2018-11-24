@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="navbar-div">
-      <van-nav-bar title="类别列表" /> 
+      <van-nav-bar 
+        title="类别列表" 
+        left-text="返回"
+        left-arrow
+        @click-left="onClickLeft" /> 
     </div>
     <div>
       <van-row>
@@ -76,8 +80,10 @@ export default {
   },
   mounted() {
     let winHeight = document.documentElement.clientHeight;
-    document.getElementById("leftNav").style.height = winHeight - 46 - 50 + "px";
-    document.getElementById("list-div").style.height = winHeight - 90 - 50 + "px";
+    document.getElementById("leftNav").style.height =
+      winHeight - 46 - 50 + "px";
+    document.getElementById("list-div").style.height =
+      winHeight - 90 - 50 + "px";
   },
   methods: {
     getCategory() {
@@ -159,7 +165,11 @@ export default {
     },
     //跳转到商品详细页
     goGoodsInfo(id) {
-      this.$router.push({ name: "Goods", params: { goodsId: id } });
+      this.$router.push({ name: "goodInfo", params: { id: id } });
+    },
+    // 点击左侧返回按钮
+    onClickLeft() {
+      this.$router.go(-1)
     }
   }
 };
