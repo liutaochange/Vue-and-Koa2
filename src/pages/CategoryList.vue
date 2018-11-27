@@ -1,44 +1,51 @@
 <template>
   <div>
     <div class="navbar-div">
-      <van-nav-bar title="类别列表" /> 
+      <van-nav-bar title="类别列表"/>
     </div>
     <div>
       <van-row>
         <van-col span="6">
           <div id="leftNav">
             <ul>
-              <li @click="clickCategory(index,item.ID)" :class="{categoryActice:categoryIndex==index}" v-for="(item , index) in category" :key="index">
-                {{item.MALL_CATEGORY_NAME}}
-              </li>
+              <li
+                @click="clickCategory(index,item.ID)"
+                :class="{categoryActice:categoryIndex==index}"
+                v-for="(item , index) in category"
+                :key="index"
+              >{{item.MALL_CATEGORY_NAME}}</li>
             </ul>
           </div>
         </van-col>
-          <van-col span="18">
-            <div class="tabCategorySub">
-              <van-tabs v-model="active" @click="onClickCategorySub">
-                <van-tab v-for="(item,index) in categorySub" :key="index" :title="item.MALL_SUB_NAME">
-                </van-tab>
-              </van-tabs>
-            </div>
-            <div id="list-div">
-              <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
-                <van-list v-model="loading" :finished="finished" @load="onLoad">
-                  <div class="list-item" @click="goGoodsInfo(item.ID)" v-for="(item,index) in goodList" :key="index">
-                    <div class="list-item-img">
-                        <img :src="item.IMAGE1" width="100%" :onerror="errorImg"/>
-                    </div>
-                    <div class="list-item-text">
-                      <div>{{item.NAME}}</div>                                    
-                      <div>￥{{item.ORI_PRICE | moneyFilter}}</div>                                    
-                    </div>
+        <van-col span="18">
+          <div class="tabCategorySub">
+            <van-tabs v-model="active" @click="onClickCategorySub">
+              <van-tab v-for="(item,index) in categorySub" :key="index" :title="item.MALL_SUB_NAME"></van-tab>
+            </van-tabs>
+          </div>
+          <div id="list-div">
+            <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
+              <van-list v-model="loading" :finished="finished" @load="onLoad">
+                <div
+                  class="list-item"
+                  @click="goGoodsInfo(item.ID)"
+                  v-for="(item,index) in goodList"
+                  :key="index"
+                >
+                  <div class="list-item-img">
+                    <img :src="item.IMAGE1" width="100%" :onerror="errorImg">
                   </div>
-                </van-list>
-              </van-pull-refresh>
-            </div>
-          </van-col>
-        </van-row>  
-      </div>
+                  <div class="list-item-text">
+                    <div>{{item.NAME}}</div>
+                    <div>￥{{item.ORI_PRICE | moneyFilter}}</div>
+                  </div>
+                </div>
+              </van-list>
+            </van-pull-refresh>
+          </div>
+        </van-col>
+      </van-row>
+    </div>
   </div>
 </template>
 
@@ -49,7 +56,6 @@ import {
   getCategorySubList,
   getGoodsListByCategorySubID
 } from "@/api/index.js";
-import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -76,8 +82,10 @@ export default {
   },
   mounted() {
     let winHeight = document.documentElement.clientHeight;
-    document.getElementById("leftNav").style.height = winHeight - 46 - 50 + "px";
-    document.getElementById("list-div").style.height = winHeight - 90 - 50 + "px";
+    document.getElementById("leftNav").style.height =
+      winHeight - 46 - 50 + "px";
+    document.getElementById("list-div").style.height =
+      winHeight - 90 - 50 + "px";
   },
   methods: {
     getCategory() {
@@ -87,7 +95,7 @@ export default {
             this.category = response.data.message;
             this.getCategorySubByCategoryID(this.category[0].ID);
           } else {
-            Toast("服务器错误，数据取得失败");
+            this.$toast("服务器错误，数据取得失败");
           }
         })
         .catch(error => {

@@ -4,7 +4,7 @@ import router from './router/index.js'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-router.beforeEach((to,from,next) => {
+router.beforeEach((to, from, next) => {
   NProgress.start()
   next()
 })
@@ -30,14 +30,16 @@ const autoRem = () => {
   //得到html的Dom元素
   let htmlDom = document.getElementsByTagName('html')[0]
   //设置根元素字体大小
-  htmlDom.style.fontSize= (htmlWidth/20) + 'px'
+  htmlDom.style.fontSize = (htmlWidth / 20) + 'px'
+  htmlDom.style.maxWidth = '750px'
+  htmlDom.style.margin = '0 auto'
 }
 autoRem()
 window.onresize = autoRem
-import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast, Tab, Tabs, PullRefresh } from 'vant'
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload,{
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast, Tab, Tabs, PullRefresh, Stepper, Tabbar, TabbarItem } from 'vant'
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload, {
   loading: require('./assets/images/use.jpg')
-}).use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(PullRefresh)
+}).use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(PullRefresh).use(Stepper).use(Tabbar).use(TabbarItem)
 Vue.config.productionTip = false
 
 new Vue({
