@@ -1,16 +1,12 @@
 <template>
   <div>
-    <div class="navbar-div">
-      <van-nav-bar 
-        title="类别列表" 
-        left-text="返回"
-        left-arrow
-        @click-left="onClickLeft" /> 
+    <div :class="$style['navbar-div']">
+      <van-nav-bar title="类别列表" left-text="返回" left-arrow @click-left="onClickLeft"/>
     </div>
     <div>
       <van-row>
         <van-col span="6">
-          <div id="leftNav">
+          <div id="leftNav" :class='$style.leftNav'>
             <ul>
               <li
                 @click="clickCategory(index,item.ID)"
@@ -22,24 +18,24 @@
           </div>
         </van-col>
         <van-col span="18">
-          <div class="tabCategorySub">
+          <div :class="$style.tabCategorySub">
             <van-tabs v-model="active" @click="onClickCategorySub">
               <van-tab v-for="(item,index) in categorySub" :key="index" :title="item.MALL_SUB_NAME"></van-tab>
             </van-tabs>
           </div>
-          <div id="list-div">
+          <div id="list-div" :class="$style['list-div']">
             <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
               <van-list v-model="loading" :finished="finished" @load="onLoad">
                 <div
-                  class="list-item"
+                  :class="$style['list-item']"
                   @click="goGoodsInfo(item.ID)"
                   v-for="(item,index) in goodList"
                   :key="index"
                 >
-                  <div class="list-item-img">
+                  <div :class="$style['list-item-img']">
                     <img :src="item.IMAGE1" width="100%" :onerror="errorImg">
                   </div>
-                  <div class="list-item-text">
+                  <div :class="$style['list-item-text']">
                     <div>{{item.NAME}}</div>
                     <div>￥{{item.ORI_PRICE | moneyFilter}}</div>
                   </div>
@@ -175,17 +171,17 @@ export default {
     },
     // 点击左侧返回按钮
     onClickLeft() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     }
   }
 };
 </script>
 
-<style scoped>
-#leftNav {
+<style lang="less" module>
+.leftNav {
   background-color: aliceblue;
 }
-#leftNav ul li {
+.leftNav ul li {
   line-height: 2rem;
   border-bottom: 1px solid #e4e7ed;
   padding: 3px;
@@ -204,7 +200,7 @@ export default {
   background-color: #fff;
   padding: 5px;
 }
-#list-div {
+.list-div {
   overflow: scroll;
 }
 .list-item-img {

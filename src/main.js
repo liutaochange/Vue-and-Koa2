@@ -36,10 +36,10 @@ const autoRem = () => {
 }
 autoRem()
 window.onresize = autoRem
-import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast, Tab, Tabs, PullRefresh, Stepper, Tabbar, TabbarItem } from 'vant'
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload, List, NavBar, Field, Toast, Tab, Tabs, PullRefresh, Stepper, Tabbar, TabbarItem, Cell, CellGroup } from 'vant'
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload, {
   loading: require('./assets/images/use.jpg')
-}).use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(PullRefresh).use(Stepper).use(Tabbar).use(TabbarItem)
+}).use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(PullRefresh).use(Stepper).use(Tabbar).use(TabbarItem).use(Cell).use(CellGroup)
 Vue.config.productionTip = false
 
 new Vue({

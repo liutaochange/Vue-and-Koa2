@@ -8,7 +8,7 @@
     </div>
     <div :class="$style['goods-name']">{{goodsInfo.NAME}}</div>
     <div :class="$style['goods-price']">价格 ：￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}元</div>
-    <div>
+    <div :class="$style['goods-content']">
       <van-tabs swipeable sticky>
         <van-tab title="商品详情">
           <div :class="$style.detail" v-html="goodsInfo.DETAIL"></div>
@@ -115,7 +115,9 @@ export default {
   flex-direction: row;
   flex-flow: nowrap;
 }
-
+.goods-content{
+  padding-bottom: 60px;
+}
 .goods-bottom > div {
   flex: 1;
   padding: 5px;

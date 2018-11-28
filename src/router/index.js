@@ -7,18 +7,37 @@ const Goods = () => import('@/pages/Goods.vue')
 const CategoryList = () => import('@/pages/CategoryList.vue')
 const Cart = () => import('@/pages/Cart.vue')
 const Mine = () => import('@/pages/Mine.vue')
+const Home = () => import('@/pages/Home.vue')
 Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      redirect: '/index'
-    },
-    {
-      path: '/index',
-      name: 'index',
-      component: Index
+      name: 'home',
+      component: Home,
+      children: [
+        {
+          path: '/index',
+          name: 'index',
+          component: Index
+        },
+        {
+          path: '/category',
+          name: 'categoryList',
+          component: CategoryList
+        },
+        {
+          path: '/cart',
+          name: 'cart',
+          component: Cart
+        },
+        {
+          path: '/mine',
+          name: 'mine',
+          component: Mine
+        }
+      ]
     },
     {
       path: '/register',
@@ -34,21 +53,6 @@ export default new Router({
       path: '/goodInfo/:id',
       name: 'goodInfo',
       component: Goods
-    },
-    {
-      path: '/category',
-      name: 'categoryList',
-      component: CategoryList
-    },
-    {
-      path: '/cart',
-      name: 'cart',
-      component: Cart
-    },
-    {
-      path: '/mine',
-      name: 'mine',
-      component: Mine
     }
   ]
 })

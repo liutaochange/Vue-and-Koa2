@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style['cart-wamp']">
     <div :class="$style['navbar-div']">
       <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="onClickLeft"/>
     </div>
@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style lang="less" module>
+.cart-wamp{
+  padding-bottom: 50px;
+}
 .cart-title {
   height: 2rem;
   line-height: 2rem;

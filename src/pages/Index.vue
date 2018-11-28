@@ -108,7 +108,6 @@ export default {
     getData() {
       getIndex()
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             let getData = JSON.parse(res.data.data);
             res.data.data = getData.data
@@ -227,6 +226,7 @@ export default {
   .hot-goods {
     overflow: hidden;
     background-color: #fff;
+    padding-bottom: 50px;
     & > .van-col{
       float: none;
       display: inline-block;
