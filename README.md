@@ -18,6 +18,8 @@
 
 ### Build Setup
 
+> 启动项目之前，请确保本地已经安装mongodb，并且连接成功
+
 ``` bash
 # clone project
 git clone https://github.com/liutaochange/Vue-and-Koa2.git
@@ -27,7 +29,15 @@ cd Vue-and-Koa2
 # install dependencies
 npm install
 
+# serve returns interface data
+cd service
+
+npm install
+
+node index.js
+
 # serve with hot reload at localhost:9099
+# 注意此时应该切换到项目目录下，再执行如下命令
 npm run serve
 
 # build for production with minification

@@ -5,16 +5,9 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  devServer: {
-    port: '9099',
-    disableHostCheck: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000/',
-        pathRewrite: { '^/api': '' }
-      }
-    }
-  },
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/Vue-and-Koa2/'
+    : '/',
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
@@ -22,6 +15,16 @@ module.exports = {
     } else {
       // 为开发环境修改配置...
       config.mode = 'development';
+      config.devServer = {
+        port: '9099',
+        disableHostCheck: true,
+        proxy: {
+          '/api': {
+            target: 'http://localhost:3000/',
+            pathRewrite: { '^/api': '' }
+          }
+        }
+      }
     }
   },
   chainWebpack: config => {
