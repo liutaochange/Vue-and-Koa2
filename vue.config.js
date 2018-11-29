@@ -5,9 +5,6 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? '/Vue-and-Koa2/'
-    : '/',
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
