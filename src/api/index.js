@@ -1,6 +1,6 @@
 import axios from 'axios'
 const request = axios.create({
-  baseURL: '/api',
+  baseURL: '/mall',
   timeout: 5000,
   withCredentials: true
 })

@@ -16,9 +16,9 @@ module.exports = {
         port: '9099',
         disableHostCheck: true,
         proxy: {
-          '/api': {
+          '/mall': {
             target: 'http://localhost:3000/',
-            pathRewrite: { '^/api': '' }
+            pathRewrite: { '^/mall': '' }
           }
         }
       }
