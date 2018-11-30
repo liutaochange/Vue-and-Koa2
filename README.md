@@ -14,7 +14,12 @@
 - 本项目是参考视频教程编写的，教程地址 [Vue.js+Koa2 移动电商实战视频教程](https://www.chungold.com/course/41)
 - 教程讲师技术胖的Github地址 [技术胖](https://github.com/shenghy)
 - 项目构建的技术栈 vue axios vue-router vant koa2 mongodb
-- 本项目基于vuecli@3.0搭建，样式使用了css module，与原视频项目有很多不同
+- 本项目基于vuecli@3.0搭建，路由采用了history模式，样式使用了css module，与原视频项目有很多不同
+
+### 项目演示
+
+[演示地址: https://liangliutao.com/mall](https://liangliutao.com/mall)
+
 
 ### Build Setup
 

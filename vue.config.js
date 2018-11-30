@@ -5,11 +5,13 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? './'
+    : '/',
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
       config.mode = 'production';
-      config.baseUrl = './'
     } else {
       // 为开发环境修改配置...
       config.mode = 'development';
